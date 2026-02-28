@@ -8,7 +8,7 @@ declare global {
 
 export default function BillingPage() {
   const startPayment = async () => {
-    // 1️⃣ CREATE ORDER (backend)
+    //  CREATE ORDER (backend)
     const orderRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/billing/create-order`,
       {
@@ -20,7 +20,7 @@ export default function BillingPage() {
 
     const order = await orderRes.json();
 
-    // 2️⃣ RAZORPAY CHECKOUT
+    //  RAZORPAY CHECKOUT
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount: order.amount,
@@ -32,7 +32,7 @@ export default function BillingPage() {
       handler: async function (response: any) {
         console.log("Razorpay Success:", response);
 
-        // 3️⃣ VERIFY PAYMENT (MOST CRITICAL)
+        // VERIFY PAYMENT (MOST CRITICAL)
         const verifyRes = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/billing/verify-payment`,
           {
